@@ -92,20 +92,48 @@ mostrando_redes("192.168.10.255/24","172.16.10.0/16","10.0.0.5/8")"""
 
 #Con un  numero de argumentos con palabra clave
 
-def informacion_red(**datos_red):
+"""def informacion_red(**datos_red):
     print("Informacion de la Red")
     for clave, valor in datos_red.items():
         print (f"{clave} : {valor} ")
+"""
 
+"""#Ingresamos los datos de la red:
 
-#Ingresamos los datos de la red:
 informacion_red(
     Direccion="192.168.10.5",
     Gateway="192.168.10.240",
     Mascara="255.255.255.0",
     Tipo="Privado"
     )
+"""
+#Funciones debtro de otras Funciones 
+def chequear_ip_en_red(ip,red):
+    
+    def validar_ip(ip_in):  
+        try:
+            return ipaddress.IPv4Address(ip_in)     
+        except ValueError:
+            print(f"\u274C La IP {ip_in} no validada es incorrecta")
+            return None
+        
+    def validar_red(red_in):
+        try:
+            return ipaddress.IPv4Network(red_in,strict=False)
+        except ValueError:
+             print(f"\u274C La red {red_in} no validada es incorrecta")
+             return None
 
+    ip_obj=validar_ip(ip)
+    red_obj=validar_red(red)
+
+    if ip_obj and red_obj:
+        if ip_obj in red_obj:
+            print(f"\u2705 La IP {ip_obj} pertenece a la red {red_obj}")
+        else:
+            print(f"\u274C La IP {ip_obj} no pertenece a la red {red_obj}")
+        
+chequear_ip_en_red("192.168.20.5","192.168.20.0/24")     
 
 
 
